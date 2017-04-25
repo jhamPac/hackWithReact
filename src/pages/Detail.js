@@ -3,7 +3,10 @@ import Chance from 'chance';
 
 class Detail extends React.Component {
     render() {
-        return <p>Hello {(chance.first() === 'John') ? 'John' : 'World!'}!</p>;
+        return (<div>
+          <p>Hello {chance.first()}!</p>
+          <p>You are from {chance.country({full: true})} right?</p>
+          </div>);
     }
 }
 
