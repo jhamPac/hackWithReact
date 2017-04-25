@@ -4,6 +4,6 @@ import ReactDOM from 'react-dom';
 import Detail from './pages/Detail';
 
 ReactDOM.render(
-  <Detail/>,
+  <Detail message="React is great!"/>,
   document.getElementById('app')
 );

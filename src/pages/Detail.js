@@ -2,7 +2,7 @@ import React from 'react';
 
 class Detail extends React.Component {
     render() {
-        return <p>Hello World!</p>;
+        return <p>{this.props.message}</p>;
     }
 }
 
