@@ -13,14 +13,21 @@ class Detail extends React.Component {
   }
 
   buttonClicked() {
-    console.log('Yup that is a click');
+
+    const newState = {
+      name: chance.first()
+    };
+
+    // kind of like Object.assign
+    this.setState(newState);
+
   }
 
   render() {
       return (<div>
         <p>Hello {this.state.name}!</p>
         <p>You are from {this.state.country} right?</p>
-        <button onClick={this.buttonClicked.call(this)}>Click Me</button>
+        <button onClick={this.buttonClicked.bind(this)}>Click Me</button>
         </div>);
   }
 }
