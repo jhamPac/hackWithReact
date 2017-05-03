@@ -6,28 +6,30 @@ class Detail extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: chance.first(),
-      country: chance.country({full: true})
-    };
+    const people = [];
+
+    for (let i = 0; i < 10; i += 1) {
+      people.push({
+        name: chance.first(),
+        counrtry: chance.country({full: true})
+      });
+    }
+
+    this.state = { people };
   }
 
   buttonClicked() {
 
-    const newState = {
-      name: chance.first()
-    };
-
     // kind of like Object.assign
-    this.setState(newState);
+    this.setState({name: chance.first()});
 
   }
 
   render() {
       return (<div>
-        <p>Hello {this.state.name}!</p>
-        <p>You are from {this.state.country} right?</p>
-        <button onClick={this.buttonClicked.bind(this)}>Click Me</button>
+        {this.state.people.map((person, index) => (
+        <p key={index}>Hello, {person.name} from {person.country}!</p>
+        ))}
         </div>);
   }
 }
