@@ -1,6 +1,10 @@
 import React from 'react';
 import ajax from 'superagent';
 
+const COMMITS = 'commits';
+const FORKS = 'forks';
+const PULLS = 'pulls';
+
 class Detail extends React.Component {
 
   // React method
@@ -13,48 +17,31 @@ class Detail extends React.Component {
     this.showPulls = this.showPulls.bind(this);
 
     this.state = {
-      mode: 'commits',
+      mode: COMMITS,
       commits: [],
       forks: [],
       pulls: []
     };
   }
 
-  // React method
-  componentWillMount() {
-
-    ajax.get('https://api.github.com/repos/facebook/react/commits')
+  fetchFeed(type) {
+    ajax.get(`https://api.github.com/repos/facebook/react/${type}`)
       .end((error, response) => {
 
         if (!error && response) {
-          this.setState({commits: response.body});
+          this.setState({ [type]: response.body });
         } else {
-          console.log('Error fetching commits', error);
+          console.log(`Error fetching ${type}`, error);
         }
 
-    });
-
-      ajax.get('https://api.github.com/repos/facebook/react/forks')
-        .end((error, response) => {
-
-          if (!error && response) {
-            this.setState({ forks: response.body});
-          } else {
-            console.log('Error fetching forks', error);
-          }
-
       });
+  }
 
-      ajax.get('https://api.github.com/repos/facebook/react/pulls')
-        .end((error, response) => {
-
-          if (!error && response) {
-            this.setState({ pulls: response.body});
-          } else {
-            console.log('Error fetching pulls', error);
-          }
-
-      });
+  // React method
+  componentWillMount() {
+    this.fetchFeed(COMMITS);
+    this.fetchFeed(FORKS);
+    this.fetchFeed(PULLS);
   }
 
   showCommits() {
